@@ -1,0 +1,48 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: bigdata_lab2_postgres
+    environment:
+      POSTGRES_DB: bigdata_lab2
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./sql_scripts/init:/docker-entrypoint-initdb.d
+      - ./исходные данные:/data
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: bigdata_lab2_clickhouse
+    environment:
+      CLICKHOUSE_DB: bigdata_lab2
+      CLICKHOUSE_USER: default
+      CLICKHOUSE_PASSWORD: default
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+
+  spark:
+    image: apache/spark:4.0.2-python3
+    container_name: bigdata_lab2_spark
+    working_dir: /opt/spark_jobs
+    command: ["/bin/bash", "-c", "tail -f /dev/null"]
+    environment:
+      - HOME=/tmp
+      - SPARK_LOCAL_DIRS=/tmp/spark
+      - PATH=/opt/spark/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - SPARK_SUBMIT_OPTS=-Divy.home=/tmp/.ivy2 -Duser.home=/tmp
+    ports:
+      - "4040:4040"
+    volumes:
+      - ./spark_jobs:/opt/spark_jobs
+      - ./spark_cache:/tmp
+    depends_on:
+      - postgres
+      - clickhouse
