@@ -60,12 +60,11 @@ services:
       CLICKHOUSE_DB: marts
       CLICKHOUSE_USER: default
       CLICKHOUSE_PASSWORD: clickhouse
-      POSTGRES_JDBC_JAR: /opt/spark/jars/postgresql-42.7.10.jar
-      CLICKHOUSE_JDBC_JAR: /opt/spark/jars/clickhouse-jdbc-0.7.1.jar
-      SPARK_JARS: /opt/spark/jars/postgresql-42.7.10.jar,/opt/spark/jars/clickhouse-jdbc-0.7.1.jar
+      POSTGRES_JDBC_JAR: /opt/bitnami/spark/jars/postgresql-42.7.10.jar
+      CLICKHOUSE_JDBC_JAR: /opt/bitnami/spark/jars/clickhouse-jdbc-0.7.1.jar
+      SPARK_JARS: /opt/bitnami/spark/jars/postgresql-42.7.10.jar,/opt/bitnami/spark/jars/clickhouse-jdbc-0.7.1.jar
     ports:
       - "4040:4040"
-      - "8888:8888"
     volumes:
       - ./:/opt/project
     working_dir: /opt/project
