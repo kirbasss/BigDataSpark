@@ -48,6 +48,7 @@ def build_spark() -> SparkSession:
         .appName("bigdata-lab-clickhouse-marts")
         .master("local[*]")
         .config("spark.sql.shuffle.partitions", "4")
+        .config("spark.jars.ivy", "/tmp/.ivy2")
         .config("spark.jars", SPARK_JARS)
         .config("spark.driver.extraClassPath", SPARK_JARS.replace(",", ":"))
         .config("spark.executor.extraClassPath", SPARK_JARS.replace(",", ":"))

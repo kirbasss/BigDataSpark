@@ -71,19 +71,6 @@ services:
     working_dir: /opt/project
     command: ["/bin/bash", "-lc", "sleep infinity"]
 
-  jupyter:
-    image: jupyter/pyspark-notebook:spark-3.5.0
-    container_name: jupyter_lab
-    depends_on:
-      - spark
-    ports:
-      - "8889:8888"
-    volumes:
-      - ./:/home/jovyan/work
-    environment:
-      - JUPYTER_ENABLE_LAB=yes
-    command: start-notebook.sh --NotebookApp.token=''
-
 volumes:
   postgres_data:
   clickhouse_data:
