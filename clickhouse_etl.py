@@ -23,8 +23,8 @@ CLICKHOUSE_PASSWORD = os.getenv("CLICKHOUSE_PASSWORD", "clickhouse")
 
 SPARK_JARS = os.getenv(
     "SPARK_JARS",
-    "/opt/bitnami/spark/jars/postgresql-42.7.10.jar,"
-    "/opt/bitnami/spark/jars/clickhouse-jdbc-0.7.1.jar",
+    "/opt/spark/jars/postgresql-42.7.10.jar,"
+    "/opt/spark/jars/clickhouse-jdbc-0.7.1.jar",
 )
 
 POSTGRES_JDBC_URL = f"jdbc:postgresql://{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
